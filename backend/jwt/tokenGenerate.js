@@ -1,19 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
-import Cookies from "js-cookie";
-export const AuthContext = createContext();
-export const AuthProvider = ({ children }) => {
-  const initialUserState =
-    Cookies.get("jwt") || localStorage.getItem("userInfo");
-
-  // parse the user data and storing in state.
-  const [authUser, setAuthUser] = useState(
-    initialUserState ? JSON.parse(initialUserState) : undefined
-  );
-  return (
-    <AuthContext.Provider value={[authUser, setAuthUser]}>
-      {children}
-    </AuthContext.Provider>
-  );
+import jwt from "jsonwebtoken";
+const createToken = (userId, res) => {
+  const token = jwt.sign({ userId }, process.env.JWT_TOKEN, {
+    expiresIn: "10d",
+  });
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
 };
 
-export const useAuth = () => useContext(AuthContext);
+export default createToken;

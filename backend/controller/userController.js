@@ -61,15 +61,3 @@ export const logout = async (req, res) => {
     res.status(500).json({ error: "Failed to logout" });
   }
 };
-
-export const allUsers = async (req, res) => {
-  try {
-    const loggedInUser = req.user._id;
-    const FillerUser = await User.find({ _id: { $ne: loggedInUser } }).select(
-      "-password"
-    );
-    res.status(201).json(FillerUser);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to get users" });
-  }
-};
