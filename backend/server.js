@@ -13,15 +13,14 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     origin: "https://expense-tracker-1-wd74.onrender.com",
-    credentials: true, // Allow cookies
+    credentials: true,
   })
 );
 
-// ✅ Middleware
+//  Middleware
 app.use(express.json());
-app.use(cookieParser()); // Required to read cookies
-
-// ✅ Use routes
+app.use(cookieParser());
+// Use routes
 app.use("/api", router);
 app.use("/api/user", userRoute);
 
