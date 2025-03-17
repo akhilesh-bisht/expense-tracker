@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseURI = "https://expense-tracker-o8to.onrender.com/api";
+const baseURI = "https://expense-tracker-o8to.onrender.com/";
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
