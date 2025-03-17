@@ -19,7 +19,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8080/api/user/logout"); //
+      await axios.post("/api/user/logout"); //
       localStorage.removeItem("userInfo");
 
       setAuthUser(null);
