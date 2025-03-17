@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://expense-tracker-1-wd74.onrender.com",
+      "https://expense-tracker-liard-xi.vercel.app", // Fixed the string syntax
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
