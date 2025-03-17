@@ -9,11 +9,15 @@ import userRoute from "./routes/user.route.js";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
-
 app.use(
   cors({
-    origin: "https://expense-tracker-1-wd74.onrender.com",
+    origin: [
+      "http://localhost:5173",
+      "https://expense-tracker-1-wd74.onrender.com",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

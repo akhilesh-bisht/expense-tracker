@@ -11,9 +11,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://expense-tracker-o8to.onrender.com", // Backend server
+        target: "https://expense-tracker-o8to.onrender.com",
         changeOrigin: true,
-        secure: false, // If using HTTPS, change this accordingly
+        secure: true,
       },
     },
   },
