@@ -4,13 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const { setAuthUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,6 +20,10 @@ export default function Signup() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    if (isLoading) {
+      toast.loading("Please wait...");
+      return;
+    }
     if (data.password !== data.confirmPassword) {
       toast.error("Passwords do not match!");
       return;
@@ -28,6 +33,7 @@ export default function Signup() {
       setIsLoading(true);
       const response = await axios.post("/api/user/signup", data);
       toast.success("Signup successful!");
+      navigate("/");
       localStorage.setItem("userInfo", JSON.stringify(response.data));
       setAuthUser(response.data);
     } catch (error) {
@@ -37,7 +43,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex min-h-screen mt-10 justify-center">
+    <div className="flex h-auto mt-10 justify-center">
       <div className="w-full h-[90%] max-w-sm bg-white shadow-lg rounded-2xl p-6">
         {/* Logo & Title */}
         <div className="text-center">

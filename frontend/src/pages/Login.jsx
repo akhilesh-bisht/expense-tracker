@@ -24,6 +24,7 @@ export default function Login() {
       const response = await axios.post("/api/user/login", data, {
         withCredentials: true,
       });
+
       toast.success("Login successful!");
       localStorage.setItem("userInfo", JSON.stringify(response.data));
       setAuthUser(response.data);
@@ -35,7 +36,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen mt-20 justify-center ">
+    <div className="flex h-auto mt-20 justify-center ">
       <div className="h-[100%]  w-full max-w-sm bg-white shadow-lg rounded-2xl p-6">
         {/* Logo & Title */}
         <div className="text-center">

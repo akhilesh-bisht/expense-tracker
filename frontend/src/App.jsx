@@ -11,9 +11,26 @@ import {
 } from "react-router-dom";
 import { useAuth } from "./context/AuthProvider.jsx";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
 
 function App() {
-  const { authUser } = useAuth();
+  const { authUser, setAuthUser } = useAuth();
+  console.log("Auth User:", authUser);
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:8080/api/user/logout"); //
+      localStorage.removeItem("userInfo");
+
+      setAuthUser(null);
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
+    } catch (error) {
+      alert("An unexpected error occurred!");
+    }
+  };
 
   return (
     <div className="App w-full">
@@ -22,6 +39,15 @@ function App() {
           Expense Tracker
         </h1>
 
+        {authUser && (
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md shadow-md transition duration-300"
+          >
+            Logout
+          </button>
+        )}
+
         {/* Routes */}
         <Routes>
           <Route
@@ -29,9 +55,7 @@ function App() {
             element={
               authUser ? (
                 <div className="md:grid md:grid-cols-2 gap-4 flex flex-col items-center">
-                  {/* Chart */}
                   <Graph />
-                  {/* Form */}
                   <Form />
                 </div>
               ) : (
