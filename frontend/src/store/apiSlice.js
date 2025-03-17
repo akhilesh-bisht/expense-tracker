@@ -1,28 +1,28 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseURI = "https://expense-tracker-o8to.onrender.com";
+const baseURI = "https://expense-tracker-o8to.onrender.com/api";
 
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: baseURI }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: baseURI,
+    credentials: "include", // ✅ Allows sending cookies for authentication
+  }),
   endpoints: (builder) => ({
-    // get categories
+    // Get categories
     getCategories: builder.query({
-      // get: 'http://localhost:8080/api/categories'
       query: () => "/api/categories",
       providesTags: ["categories"],
     }),
 
-    // get labels
+    // Get labels
     getLabels: builder.query({
-      // get: 'http://localhost:8080/api/labels'
       query: () => "/api/labels",
       providesTags: ["transaction"],
     }),
 
-    // add new Transaction
+    // Add new Transaction
     addTransaction: builder.mutation({
       query: (initialTransaction) => ({
-        // post: 'http://localhost:8080/api/transaction'
         url: "/api/transaction",
         method: "POST",
         body: initialTransaction,
@@ -30,10 +30,9 @@ export const apiSlice = createApi({
       invalidatesTags: ["transaction"],
     }),
 
-    // delete record
+    // Delete record
     deleteTransaction: builder.mutation({
       query: (recordId) => ({
-        // delete: 'http://localhost:8080/api/transaction'
         url: "/api/transaction",
         method: "DELETE",
         body: recordId,
