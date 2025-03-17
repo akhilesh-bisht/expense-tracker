@@ -15,6 +15,12 @@ app.use(express.json());
 // Use routes
 app.use(router);
 
+app.use(
+  cors({
+    origin: "https://expense-tracker-1-wd74.onrender.com/", // Allow frontend domain
+    credentials: true, // Allow cookies
+  })
+);
 // MongoDB connection & start server
 const startServer = async () => {
   try {
