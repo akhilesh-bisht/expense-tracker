@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db/connection.js";
 import router from "./routes/route.js";
-
+import useRoute from "./routes/user.route.js";
 const app = express();
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -30,4 +30,5 @@ const startServer = async () => {
   }
 };
 
+app.use("/api/user", userRoute);
 startServer();
