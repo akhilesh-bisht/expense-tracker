@@ -22,8 +22,8 @@ export default function Labels() {
 function LabelComponent({ data }) {
   if (!data) return <></>;
   return (
-    <div className="labels flex justify-between">
-      <div className="flex gap-2">
+    <div className="labels flex justify-between items-center">
+      <div className="flex gap-2 items-center">
         <div
           className="w-2 h-2 rounded py-3"
           style={{ background: data.color ?? "#f9c74f" }}
